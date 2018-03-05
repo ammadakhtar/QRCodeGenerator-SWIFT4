@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardOnTap(#selector(self.dismissKeyboard))
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -34,5 +35,17 @@ class ViewController: UIViewController {
             myImageView.image = qrCodeImage
         }
     }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+        // do aditional stuff
+    }
 }
 
+extension UIViewController {
+    func hideKeyboardOnTap(_ selector: Selector) {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: selector)
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+}
